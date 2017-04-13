@@ -15,14 +15,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HttpMethod {
     private static HashMap<String, Retrofit> https;
     public static final String API_HTTP = "http";
-    public static final String API_HTTPS = "https";
-    public static final String API_PAY = "pays";
 
     static {
         https = new HashMap<>();
         addRetrofit(API_HTTP, "http://edu.depts.bingosoft.net:8084/home/");
-        addRetrofit(API_HTTPS, "https://kyfw.12306.cn/");
-        addRetrofit(API_PAY, "http://m.chaozf.com/");
     }
 
     //配置基础的Retrofit
@@ -50,7 +46,6 @@ public class HttpMethod {
 
     /**
      * 初始化服务
-     *
      * @param cls 服务类型
      * @param <T> 服务类型
      * @return 返回服务

@@ -7,7 +7,7 @@ import com.zoker.common.cache.CacheManager;
 import com.zoker.common.exception.ApiException;
 import com.zoker.common.log.Logger;
 import com.zoker.common.rx.RxHelper;
-import com.zoker.common.rx.network.data.DataWrapper;
+import com.zoker.common.model.data.DataWrapper;
 import com.zoker.utils.NetworkUtil;
 
 import java.lang.reflect.Type;
@@ -148,7 +148,6 @@ public class RxNetHelper extends RxHelper {
 
     /**
      * 缓存优先加载
-     *
      * @param context      上下文
      * @param cacheKey     保存路径
      * @param forceRefresh 是否缓存

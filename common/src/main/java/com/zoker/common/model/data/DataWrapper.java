@@ -1,4 +1,4 @@
-package com.zoker.common.rx.network.data;
+package com.zoker.common.model.data;
 
 import com.google.gson.annotations.SerializedName;
 
