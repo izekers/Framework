@@ -1,0 +1,36 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.1"
+
+    defaultConfig {
+        minSdkVersion _minSdkVersion.toInteger()
+        targetSdkVersion _targetSdkVersion.toInteger()
+        versionCode _versionCode.toInteger()
+        versionName "${_versionName}"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile "${appcompat_v7}"
+    testCompile 'junit:junit:4.12'
+    //相机相册库
+    //Album库
+    compile "${lib_album}"
+    //ImageLoad加载库
+    compile "${glide}"
+
+}

@@ -138,9 +138,6 @@ public class RxBus {
         mSubscriptionMap.remove(key);
     }
 
-
-
-
     public static SubscriberBuilder getSubscriber(){
         return new SubscriberBuilder();
     }

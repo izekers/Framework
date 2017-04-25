@@ -1,15 +1,15 @@
 apply plugin: 'com.android.library'
-
+//dbflow
+apply plugin: 'com.neenbedankt.android-apt'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.1"
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
-
+        minSdkVersion _minSdkVersion.toInteger()
+        targetSdkVersion _targetSdkVersion.toInteger()
+        versionCode _versionCode.toInteger()
+        versionName "${_versionName}"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -26,22 +26,41 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
     testCompile 'junit:junit:4.12'
-    //imageLoad:glide
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    //Mvp
-    compile 'com.hannesdorfmann.mosby3:mvp-lce:3.0.2'
-    //Gson
-    compile 'com.google.code.gson:gson:2.7'
-    //OKhttp
-    compile 'com.squareup.okhttp3:okhttp:3.6.0'
-    //Retrofit
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-    //Rxjava
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'io.reactivex:rxjava:1.1.6'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile "${appcompat_v7}"
+    //model
     compile project(path: ':utils')
+    //imageLoad:glide
+    compile "${glide}"
+    //Mvp
+    compile "${mosby3}"
+    //Gson
+    compile "${gson}"
+    //OKhttp
+    compile "${okhttp3}"
+    //Retrofit
+    compile "${retrofit}"
+    compile "${adapter_rxjava}"
+    //Rxjava
+    compile "${rxandroid}"
+    compile "${rxjava}"
+    compile "${rxjava2}"
+    compile "${rxandroid2}"
+    compile "${converter_gson}"
+    //RxPermission
+    compile "${rxpermissions}"
+    compile "${rxpermissions2}"
+    //RxBinding
+    compile "${rxbinding2}"
+    compile "${rxbinding_support_v4}"
+    compile "${rxbinding_appcompat_v7}"
+    compile "${rxbinding_recyclerview_v7}"
+    //dbflow
+    apt "${apt_DBFlow_Compiler}"
+    compile "${DBFlow_Core}"
+    compile "${DBFlow}"
+    //我超级欣赏的库：multitype
+    compile ("${multitype}",{
+        exclude group: 'com.android.support'
+    })
 }

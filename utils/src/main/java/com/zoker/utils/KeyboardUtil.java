@@ -2,9 +2,16 @@ package com.zoker.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Rect;
+import android.os.IBinder;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView;
+import android.widget.EditText;
+import android.widget.ScrollView;
 
 /**
  * 键盘工具
@@ -27,6 +34,12 @@ public class KeyboardUtil {
      【H】adjustResize：该Activity总是调整屏幕的大小以便留出软键盘的空间
      【I】adjustPan：当前窗口的内容将自动移动以便当前焦点从不被键盘覆盖和用户能总是看到输入内容的部分
      */
+
+    //点击空白处隐藏键盘，设置在setContentView后面
+    public static void spaceHint(Activity activity){
+        new KeyboardUtil(activity);
+    }
+
     //关闭软键盘
     public static void hintKbTwo(Activity activity) {
         if (activity.getCurrentFocus() != null) {
@@ -49,7 +62,100 @@ public class KeyboardUtil {
         if (view==null)
             return;
         InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
-       imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
+
+    private KeyboardUtil(final Activity activity) {
+        ViewGroup content = (ViewGroup) activity.findViewById(android.R.id.content);
+        content.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                dispatchTouchEvent(activity, motionEvent);
+                return false;
+            }
+        });
+        getScrollView(content, activity);
+    }
+
+    private void getScrollView(ViewGroup viewGroup, final Activity activity) {
+        if (null == viewGroup) {
+            return;
+        }
+        int count = viewGroup.getChildCount();
+        for (int i = 0; i < count; i++) {
+            View view = viewGroup.getChildAt(i);
+            if (view instanceof ScrollView) {
+                ScrollView newDtv = (ScrollView) view;
+                newDtv.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                        dispatchTouchEvent(activity, motionEvent);
+
+                        return false;
+                    }
+                });
+            } else if (view instanceof AbsListView) {
+                AbsListView newDtv = (AbsListView) view;
+                newDtv.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                        dispatchTouchEvent(activity, motionEvent);
+
+                        return false;
+                    }
+                });
+            } else if (view instanceof ViewGroup) {
+
+                this.getScrollView((ViewGroup) view, activity);
+            }
+        }
+    }
+
+    /**
+     * @param mActivity
+     * @param ev
+     * @return
+     */
+    private boolean dispatchTouchEvent(Activity mActivity, MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = mActivity.getCurrentFocus();
+            if (null != v && isShouldHideInput(v, ev)) {
+                hideSoftInput(mActivity, v.getWindowToken());
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param v
+     * @param event
+     * @return
+     */
+    private boolean isShouldHideInput(View v, MotionEvent event) {
+        if (v instanceof EditText) {
+            Rect rect = new Rect();
+            v.getHitRect(rect);
+            if (rect.contains((int) event.getX(), (int) event.getY())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * @param mActivity
+     * @param token
+     */
+    private void hideSoftInput(Activity mActivity, IBinder token) {
+        if (token != null) {
+            InputMethodManager im = (InputMethodManager) mActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            im.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
+
 
 }
