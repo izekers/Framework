@@ -1,10 +1,8 @@
-package com.zoker.framework.db;
+package com.zoker.framework.control.db;
 
-import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 
 
-import com.jakewharton.rxbinding2.view.RxView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 /**
  * Created by Zoker on 2017/4/13.

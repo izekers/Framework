@@ -11,8 +11,6 @@ import com.zoker.framework.R;
 import com.zoker.framework.model.IntentModel;
 import com.zoker.framework.view.ViewHolder.DemoViewProvider;
 
-import java.util.List;
-
 import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
 

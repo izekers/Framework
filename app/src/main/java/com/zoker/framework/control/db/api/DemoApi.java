@@ -1,4 +1,4 @@
-package com.zoker.framework.api;
+package com.zoker.framework.control.db.api;
 
 import retrofit2.http.POST;
 import rx.Observable;

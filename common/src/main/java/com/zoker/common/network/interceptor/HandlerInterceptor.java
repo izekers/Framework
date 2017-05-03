@@ -1,6 +1,7 @@
 package com.zoker.common.network.interceptor;
 
 
+import com.zoker.common.BaseApplication;
 import com.zoker.common.log.Logger;
 
 import java.io.EOFException;
@@ -8,6 +9,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
 
+import okhttp3.CacheControl;
 import okhttp3.Headers;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;

@@ -1,10 +1,8 @@
-package com.zoker.framework.action;
-
-import android.util.Log;
+package com.zoker.framework.control.db.action;
 
 import com.zoker.common.exception.MethodException;
 import com.zoker.common.network.HttpMethod;
-import com.zoker.framework.api.DemoApi;
+import com.zoker.framework.control.db.api.DemoApi;
 
 import rx.Observable;
 

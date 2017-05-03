@@ -1,4 +1,4 @@
-package com.zoker.framework.db;
+package com.zoker.framework.control.db;
 
 import com.raizlabs.android.dbflow.annotation.Database;
 

@@ -18,6 +18,30 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    Properties props = new Properties()
+    props.load(new FileInputStream(file("siging.properties")))
+    android {
+        signingConfigs {
+            release {
+                keyAlias props['KEY_ALIAS']
+                keyPassword props['KEY_PASSWORD']
+                storeFile file(props['KEYSTORE_FILE'])
+                storePassword props['KEYSTORE_PASSWORD']
+            }
+        }
+        buildTypes {
+            release {
+                signingConfig signingConfigs.release
+                minifyEnabled true
+            }
+            debug {
+                signingConfig signingConfigs.release
+                debuggable true
+                minifyEnabled false
+            }
+        }
+    }
 }
 
 dependencies {
